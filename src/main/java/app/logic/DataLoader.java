@@ -1,39 +1,38 @@
 package app.logic;
 
-import app.beans.Booking;
-import app.beans.Dealer;
 
-import java.util.List;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
+
+import app.logic.DealersDAO;
+
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Iterator;
 
+import app.beans.Booking;
 
 public class DataLoader {
 
-    public static void loadData(List<Booking> bookings,List<Dealer> dealers){
 
-        try {
-            byte[] jsonData = Files.readAllBytes(Paths.get("dataset.json"));
-            ObjectMapper objectMapper = new ObjectMapper();
-            JsonNode rootNode = objectMapper.readTree(jsonData);
-            JsonNode dealersNode = rootNode.path("dealers");
-            Iterator<JsonNode> d = dealersNode.elements();
-            while (d.hasNext()) {
-                dealers.add(objectMapper.treeToValue(d.next(), Dealer.class));
+    public void loadData() {
+        
+        
+            try {
+                byte[] jsonData = Files.readAllBytes(Paths.get("dataset.json"));
+                ObjectMapper objectMapper = new ObjectMapper();
+                JsonNode rootNode = objectMapper.readTree(jsonData);
+                DealersDAO dealersDAO = new DealersDAO();
+                dealersDAO.LoadDealers(rootNode, objectMapper);
+                BookingsDAO bookingsDAO = new BookingsDAO();
+                bookingsDAO.loadBookings(rootNode, objectMapper);
+            } catch (IOException e) {
+                e.printStackTrace();
             }
-            JsonNode bookingsNode = rootNode.path("bookings");
-            Iterator<JsonNode> b = bookingsNode.elements();
-            while (b.hasNext()) {
-                bookings.add(objectMapper.treeToValue(b.next(), Booking.class));
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        
     }
+
+    
 
 }

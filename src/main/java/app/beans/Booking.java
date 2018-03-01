@@ -1,6 +1,7 @@
 package app.beans;
 
-import java.time.*;
+import java.time.LocalDateTime;
+import org.w3c.dom.Text;
 
 public class Booking{
 
@@ -8,10 +9,10 @@ public class Booking{
     public String vehicleId;	//Vehicle identifier
     public String firstName;	//Customer's first name
     public String lastName;	//Customer's last name
-    public String pickupDate;	//Day and time of the booking
-    public String createdAt;	//Day and Time that the booking entry was created
-    public String cancelledAt;	//Day and Time that this booking was cancelled
-    public String cancelledReason;	//Reason for the booking cancelation
+    public LocalDateTime pickupDate;	//Day and time of the booking
+    public LocalDateTime createdAt;	//Day and Time that the booking entry was created
+    public LocalDateTime cancelledAt;	//Day and Time that this booking was cancelled
+    public Text cancelledReason;	//Reason for the booking cancelation
 
    /* public Booking(String id, String vehicleId, String firstName, String lastName, String pickupDate, String createdAt,
             String cancelledAt, String cancelledReason) {
@@ -59,35 +60,35 @@ public class Booking{
         this.lastName=lastName;
     }
 
-    public String getPickUpDate(){
+    public LocalDateTime getPickUpDate(){
         return pickupDate;
     }
 
-    public void setPickUpDate(String pickupDate){
+    public void setPickUpDate(LocalDateTime pickupDate){
         this.pickupDate=pickupDate;
     }
     
-    public String getCreatedAt(){
+    public LocalDateTime getCreatedAt(){
         return createdAt;
     }
 
-    public void setCreatedAt(String createdAt){
+    public void setCreatedAt(LocalDateTime createdAt){
         this.createdAt=createdAt;
     }
 
-    public String getCancelledAt(){
+    public LocalDateTime getCancelledAt(){
         return cancelledAt;
     }
 
-    public void setCancelledAt(String cancelledAt){
+    public void setCancelledAt(LocalDateTime cancelledAt){
         this.cancelledAt=cancelledAt;
     }
 
-    public String getCancelledReason(){
+    public Text getCancelledReason(){
         return cancelledReason;
     }
 
-    public void setCancelledReason(String cancelledReason){
+    public void setCancelledReason(Text cancelledReason){
         this.cancelledReason=cancelledReason;
     }
 }
