@@ -1,23 +1,17 @@
 package app;
 
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+import app.services.DataLoader;
 
-import app.beans.Booking;
-import app.beans.Dealer;
-import app.logic.DataLoader;
-import java.util.ArrayList;
-
-import java.util.List;
-
+@SpringBootApplication
 public class TestDrive {
-    static List<Booking> bookings;
-    static List<Dealer> dealers;
 
     public static void main(String[] args) {
-        if (bookings==null && dealers==null) {
-            bookings= new ArrayList<>();
-            dealers = new ArrayList<>();
-            DataLoader.loadData(bookings, dealers);
-        }
+        SpringApplication.run(TestDrive.class,args);
+        DataLoader dataLoader = new DataLoader();
+        dataLoader.loadData();
+        
     }
 }
