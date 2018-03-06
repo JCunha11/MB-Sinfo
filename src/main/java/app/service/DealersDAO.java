@@ -1,20 +1,23 @@
-package app.services;
+package app.service;
 
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-import java.util.HashMap;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-import app.beans.Dealer;
-
+import app.model.Dealer;
+/**
+ * Class responsible for the access to the Dealers
+ */
 public class DealersDAO {
 
     public static Map<String,Dealer> dealers = new HashMap<>();
-
+    /**
+     * Method that loads the bookings
+     */
     public void loadDealers(JsonNode rootNode, ObjectMapper objectMapper) {
         dealers = new HashMap<>();
         JsonNode dealersNode = rootNode.path("dealers");

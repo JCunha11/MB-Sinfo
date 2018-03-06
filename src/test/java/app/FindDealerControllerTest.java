@@ -26,10 +26,9 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import app.beans.Dealer;
-import app.beans.Vehicle;
-import app.services.DataLoader;
-import app.services.DealersDAO;
+import app.model.Dealer;
+import app.model.Vehicle;
+import app.service.DealersDAO;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= TestDrive.class)    

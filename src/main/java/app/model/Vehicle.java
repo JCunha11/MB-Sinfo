@@ -1,4 +1,4 @@
-package app.beans;
+package app.model;
 
 import java.util.List;
 import java.util.Map;
@@ -6,6 +6,7 @@ import java.util.Map;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.Comparator;
 
 public class Vehicle {
@@ -15,6 +16,7 @@ public class Vehicle {
     private String fuel; //Fuel type
     private String transmission; //transmission type
     private Map<String, List<String>> availability; //days of the week (keys) and the hours (values) available for booking.
+    private String dealerId;
 
     public Vehicle(String id, String model, String fuel, String transmission, Map<String,List<String>> availability){
         this.id=id;
@@ -70,6 +72,14 @@ public class Vehicle {
         this.availability = availability;
     }
 
+    public void setDealerId(String dealerId){
+        this.dealerId=dealerId;
+    }
+
+    public String getDealerId(){
+        return dealerId;
+    }
+
     /*Comparator by model*/
     public static Comparator<Vehicle> vehicleModelComparator = new Comparator<Vehicle>() {
         public int compare(Vehicle v1, Vehicle v2) {
@@ -102,7 +112,7 @@ public class Vehicle {
 
     public boolean isAvailable(LocalDateTime pickupDate){
         String day = pickupDate.getDayOfWeek().toString().toLowerCase();
-        String time = pickupDate.getHour()+""+pickupDate.getMinute();
+        String time = pickupDate.toLocalTime().toString().replace(":", "");
         
         if(availability.containsKey(day)){
             if(availability.get(day).contains(time)){
@@ -111,4 +121,5 @@ public class Vehicle {
         }
         return false;
     }
+
 }

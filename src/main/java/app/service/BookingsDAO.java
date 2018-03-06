@@ -1,4 +1,4 @@
-package app.services;
+package app.service;
 
 import java.util.HashMap;
 import java.util.Iterator;
@@ -9,12 +9,17 @@ import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 
-import app.beans.Booking;
-
+import app.model.Booking;
+/**
+ * Class responsible for the access to the Bookings
+ */
 public class BookingsDAO{
 
     public static Map<String,Booking> bookings;
 
+    /**
+     * Method that loads the bookings
+     */
     public void loadBookings(JsonNode rootNode, ObjectMapper objectMapper){
         bookings = new HashMap<>();
         JsonNode bookingsNode = rootNode.path("bookings");

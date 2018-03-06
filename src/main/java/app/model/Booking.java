@@ -1,4 +1,4 @@
-package app.beans;
+package app.model;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
@@ -6,7 +6,7 @@ import java.util.UUID;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-import org.w3c.dom.Text;
+import org.apache.hadoop.io.Text;
 
 public class Booking{
 
@@ -42,14 +42,13 @@ public class Booking{
         this.cancelledReason = cancelledReason;
     }
 
+    public Booking(){
+        this.id=String.valueOf(UUID.randomUUID());
+    }
+
     public String getId(){
         return id;
     }
-
-
-   /* public void setId(String id){
-        this.id = id;
-    }*/  
 
     public String getVehicleId(){
         return vehicleId;
@@ -75,11 +74,11 @@ public class Booking{
         this.lastName=lastName;
     }
 
-    public LocalDateTime getPickUpDate(){
+    public LocalDateTime getPickupDate(){
         return pickupDate;
     }
 
-    public void setPickUpDate(LocalDateTime pickupDate){
+    public void setPickupDate(LocalDateTime pickupDate){
         this.pickupDate=pickupDate;
     }
     

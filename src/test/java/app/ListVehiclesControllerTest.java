@@ -13,7 +13,6 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 import org.junit.Before;
 import org.junit.Test;
@@ -27,10 +26,10 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import app.beans.Dealer;
-import app.beans.Vehicle;
-import app.services.DataLoader;
-import app.services.DealersDAO;
+import app.model.Dealer;
+import app.model.Vehicle;
+import app.service.DealersDAO;
+
 @RunWith(SpringRunner.class)
 @SpringBootTest(classes= TestDrive.class)    
 @WebAppConfiguration
@@ -105,26 +104,29 @@ public class ListVehiclesControllerTest{
     @Test
     public void listVehiclesByFuel() throws Exception{
         mockMvc.perform(get("/ListVehicles/fuel")).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(3)))
-        .andExpect(jsonPath("$[0].id",is(allVehicles.get(0).getId())))
-        .andExpect(jsonPath("$[0].model", is(allVehicles.get(0).getModel())))
-        .andExpect(jsonPath("$[0].fuel",is(allVehicles.get(0).getFuel() )))
-        .andExpect(jsonPath("$[0].transmission",is(allVehicles.get(0).getTransmission())))
-        .andExpect(jsonPath("$[1].id",is(allVehicles.get(2).getId())))
-        .andExpect(jsonPath("$[1].model", is(allVehicles.get(2).getModel())))
-        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(2).getFuel() )))
-        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(2).getTransmission())))
-        .andExpect(jsonPath("$[2].id",is(allVehicles.get(1).getId())))
-        .andExpect(jsonPath("$[2].model", is(allVehicles.get(1).getModel())))
-        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(1).getFuel() )))
-        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(1).getTransmission())));
-       // .andExpect(jsonPath("$[0].availability[0]",is(allVehicles.get(0).getAvailability())))
+        .andExpect(jsonPath("$", hasSize(4)))
+        .andExpect(jsonPath("$[0].id",is(allVehicles.get(3).getId())))
+        .andExpect(jsonPath("$[0].model", is(allVehicles.get(3).getModel())))
+        .andExpect(jsonPath("$[0].fuel",is(allVehicles.get(3).getFuel() )))
+        .andExpect(jsonPath("$[0].transmission",is(allVehicles.get(3).getTransmission())))
+        .andExpect(jsonPath("$[1].id",is(allVehicles.get(0).getId())))
+        .andExpect(jsonPath("$[1].model", is(allVehicles.get(0).getModel())))
+        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(0).getFuel() )))
+        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(0).getTransmission())))
+        .andExpect(jsonPath("$[2].id",is(allVehicles.get(2).getId())))
+        .andExpect(jsonPath("$[2].model", is(allVehicles.get(2).getModel())))
+        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(2).getFuel() )))
+        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(2).getTransmission())))
+        .andExpect(jsonPath("$[3].id",is(allVehicles.get(1).getId())))
+        .andExpect(jsonPath("$[3].model", is(allVehicles.get(1).getModel())))
+        .andExpect(jsonPath("$[3].fuel",is(allVehicles.get(1).getFuel() )))
+        .andExpect(jsonPath("$[3].transmission",is(allVehicles.get(1).getTransmission())));
     }
 
     @Test
     public void listVehiclesByModel() throws Exception{
         mockMvc.perform(get("/ListVehicles/model")).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(3)))
+        .andExpect(jsonPath("$", hasSize(4)))
         .andExpect(jsonPath("$[0].id",is(allVehicles.get(0).getId())))
         .andExpect(jsonPath("$[0].model", is(allVehicles.get(0).getModel())))
         .andExpect(jsonPath("$[0].fuel",is(allVehicles.get(0).getFuel() )))
@@ -133,49 +135,58 @@ public class ListVehiclesControllerTest{
         .andExpect(jsonPath("$[1].model", is(allVehicles.get(1).getModel())))
         .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(1).getFuel() )))
         .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(1).getTransmission())))
-        .andExpect(jsonPath("$[2].id",is(allVehicles.get(2).getId())))
-        .andExpect(jsonPath("$[2].model", is(allVehicles.get(2).getModel())))
-        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(2).getFuel() )))
-        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(2).getTransmission())));
-       // .andExpect(jsonPath("$[0].availability[0]",is(allVehicles.get(0).getAvailability())))
+        .andExpect(jsonPath("$[2].id",is(allVehicles.get(3).getId())))
+        .andExpect(jsonPath("$[2].model", is(allVehicles.get(3).getModel())))
+        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(3).getFuel() )))
+        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(2).getTransmission())))
+        .andExpect(jsonPath("$[3].id",is(allVehicles.get(2).getId())))
+        .andExpect(jsonPath("$[3].model", is(allVehicles.get(2).getModel())))
+        .andExpect(jsonPath("$[3].fuel",is(allVehicles.get(2).getFuel() )))
+        .andExpect(jsonPath("$[3].transmission",is(allVehicles.get(2).getTransmission())));
     }
 
     @Test
     public void listVehiclesByTransmission() throws Exception{
         mockMvc.perform(get("/ListVehicles/transmission")).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(3)))
+        .andExpect(jsonPath("$", hasSize(4)))
         .andExpect(jsonPath("$[0].id",is(allVehicles.get(1).getId())))
         .andExpect(jsonPath("$[0].model", is(allVehicles.get(1).getModel())))
         .andExpect(jsonPath("$[0].fuel",is(allVehicles.get(1).getFuel() )))
         .andExpect(jsonPath("$[0].transmission",is(allVehicles.get(1).getTransmission())))
-        .andExpect(jsonPath("$[1].id",is(allVehicles.get(0).getId())))
-        .andExpect(jsonPath("$[1].model", is(allVehicles.get(0).getModel())))
-        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(0).getFuel() )))
-        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(0).getTransmission())))
-        .andExpect(jsonPath("$[2].id",is(allVehicles.get(2).getId())))
-        .andExpect(jsonPath("$[2].model", is(allVehicles.get(2).getModel())))
-        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(2).getFuel() )))
-        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(2).getTransmission())));
-       // .andExpect(jsonPath("$[0].availability[0]",is(allVehicles.get(0).getAvailability())))
+        .andExpect(jsonPath("$[1].id",is(allVehicles.get(3).getId())))
+        .andExpect(jsonPath("$[1].model", is(allVehicles.get(3).getModel())))
+        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(3).getFuel() )))
+        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(3).getTransmission())))
+        .andExpect(jsonPath("$[2].id",is(allVehicles.get(0).getId())))
+        .andExpect(jsonPath("$[2].model", is(allVehicles.get(0).getModel())))
+        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(0).getFuel() )))
+        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(0).getTransmission())))
+        .andExpect(jsonPath("$[3].id",is(allVehicles.get(2).getId())))
+        .andExpect(jsonPath("$[3].model", is(allVehicles.get(2).getModel())))
+        .andExpect(jsonPath("$[3].fuel",is(allVehicles.get(2).getFuel() )))
+        .andExpect(jsonPath("$[3].transmission",is(allVehicles.get(2).getTransmission())));
     }
 
     @Test
     public void listVehiclesByDealer() throws Exception{
         mockMvc.perform(get("/ListVehicles/transmission")).andExpect(status().isOk())
-        .andExpect(jsonPath("$", hasSize(3)))
+        .andExpect(jsonPath("$", hasSize(4)))
         .andExpect(jsonPath("$[0].id",is(allVehicles.get(1).getId())))
         .andExpect(jsonPath("$[0].model", is(allVehicles.get(1).getModel())))
         .andExpect(jsonPath("$[0].fuel",is(allVehicles.get(1).getFuel() )))
         .andExpect(jsonPath("$[0].transmission",is(allVehicles.get(1).getTransmission())))
-        .andExpect(jsonPath("$[1].id",is(allVehicles.get(0).getId())))
-        .andExpect(jsonPath("$[1].model", is(allVehicles.get(0).getModel())))
-        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(0).getFuel() )))
-        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(0).getTransmission())))
-        .andExpect(jsonPath("$[2].id",is(allVehicles.get(2).getId())))
-        .andExpect(jsonPath("$[2].model", is(allVehicles.get(2).getModel())))
-        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(2).getFuel() )))
-        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(2).getTransmission())));
-       // .andExpect(jsonPath("$[0].availability[0]",is(allVehicles.get(0).getAvailability())))
+        .andExpect(jsonPath("$[1].id",is(allVehicles.get(3).getId())))
+        .andExpect(jsonPath("$[1].model", is(allVehicles.get(3).getModel())))
+        .andExpect(jsonPath("$[1].fuel",is(allVehicles.get(3).getFuel() )))
+        .andExpect(jsonPath("$[1].transmission",is(allVehicles.get(3).getTransmission())))
+        .andExpect(jsonPath("$[2].id",is(allVehicles.get(0).getId())))
+        .andExpect(jsonPath("$[2].model", is(allVehicles.get(0).getModel())))
+        .andExpect(jsonPath("$[2].fuel",is(allVehicles.get(0).getFuel() )))
+        .andExpect(jsonPath("$[2].transmission",is(allVehicles.get(0).getTransmission())))
+        .andExpect(jsonPath("$[3].id",is(allVehicles.get(2).getId())))
+        .andExpect(jsonPath("$[3].model", is(allVehicles.get(2).getModel())))
+        .andExpect(jsonPath("$[3].fuel",is(allVehicles.get(2).getFuel() )))
+        .andExpect(jsonPath("$[3].transmission",is(allVehicles.get(2).getTransmission())));
     }
 
 
